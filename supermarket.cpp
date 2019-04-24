@@ -97,4 +97,17 @@ if(flag==0)
 cout<<”\n\nrecord not exist”;
 getch();
 }
+//***************************************************************
+// function to modify record of file
+//****************************************************************
+void modify_product()
+{
+int no,found=0;
+clrscr();
+cout<<”\n\n\tTo Modify “;
+cout<<”\n\n\tPlease Enter The Product No. of The Product”;
+cin>>no;
+fp.open(“Shop.dat”,ios::in|ios::out);
+while(fp.read((char*)&pr,sizeof(product)) && found==0)
+{
 
