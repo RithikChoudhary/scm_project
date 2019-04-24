@@ -25,4 +25,21 @@ cin>>price;
 cout<<”\nPlease Enter The Discount (%) “;
 cin>>dis;
 }
+void show_product()
+{
+cout<<”\nThe Product No. of The Product : “<<pno;
+cout<<”\nThe Name of The Product : “;
+puts(name);
+cout<<”\nThe Price of The Product : “<<price;
+cout<<”\nDiscount : “<<dis;
+}
+intretpno()
+{return pno;}
+float retprice()
+{return price;}
+char* retname()
+{return name;}
+intretdis()
+{return dis;}
+}; //class ends here
 
