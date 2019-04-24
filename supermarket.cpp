@@ -42,4 +42,89 @@ char* retname()
 intretdis()
 {return dis;}
 }; //class ends here
+//***************************************************************
+// global declaration for stream object, object
+//****************************************************************
+fstream fp;
+product pr;
+//***************************************************************
+// function to write in file
+//****************************************************************
+void write_product()
+{
+fp.open(“Shop.dat”,ios::out|ios::app);
+pr.create_product();
+fp.write((char*)&pr,sizeof(product));
+fp.close();
+cout<<”\n\nThe Product Has Been Created “;
+getch();
+}
+//***************************************************************
+// function to read all records from file
+//****************************************************************
+void display_all()
+{
+clrscr();
+cout<<”\n\n\n\t\tDISPLAY ALL RECORD !!!\n\n”;
+fp.open(“Shop.dat”,ios::in);
+while(fp.read((char*)&pr,sizeof(product)))
+{
+pr.show_product();
+cout<<”\n\n====================================\n”;
+getch();
+}
+fp.close();
+getch();
+}
+//***************************************************************
+// function to read specific record from file
+//****************************************************************
+void display_sp(int n)
+{
+int flag=0;
+fp.open(“Shop.dat”,ios::in);
+while(fp.read((char*)&pr,sizeof(product)))
+{
+if(pr.retpno()==n)
+{
+clrscr();
+pr.show_product();
+flag=1;
+}
+}
+fp.close();
+if(flag==0)
+cout<<”\n\nrecord not exist”;
+getch();
+}
+//***************************************************************
+// function to modify record of file
+//****************************************************************
+void modify_product()
+{
+int no,found=0;
+clrscr();
+cout<<”\n\n\tTo Modify “;
+cout<<”\n\n\tPlease Enter The Product No. of The Product”;
+cin>>no;
+fp.open(“Shop.dat”,ios::in|ios::out);
+while(fp.read((char*)&pr,sizeof(product)) && found==0)
+{
+if(pr.retpno()==no)
+{
+pr.show_product();
+cout<<”\nPlease Enter The New Details of Product”<<endl;
+pr.create_product();
+int pos=-1*sizeof(pr);
+fp.seekp(pos,ios::cur);
+fp.write((char*)&pr,sizeof(product));
+cout<<”\n\n\t Record Updated”;
+found=1;
+}
+}
+fp.close();
+if(found==0)
+cout<<”\n\n Record Not Found “;
+getch();
+}
 
