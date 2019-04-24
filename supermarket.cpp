@@ -42,4 +42,21 @@ char* retname()
 intretdis()
 {return dis;}
 }; //class ends here
+//***************************************************************
+// global declaration for stream object, object
+//****************************************************************
+fstream fp;
+product pr;
+//***************************************************************
+// function to write in file
+//****************************************************************
+void write_product()
+{
+fp.open(“Shop.dat”,ios::out|ios::app);
+pr.create_product();
+fp.write((char*)&pr,sizeof(product));
+fp.close();
+cout<<”\n\nThe Product Has Been Created “;
+getch();
+}
 
