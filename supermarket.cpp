@@ -76,4 +76,25 @@ getch();
 fp.close();
 getch();
 }
+//***************************************************************
+// function to read specific record from file
+//****************************************************************
+void display_sp(int n)
+{
+int flag=0;
+fp.open(“Shop.dat”,ios::in);
+while(fp.read((char*)&pr,sizeof(product)))
+{
+if(pr.retpno()==n)
+{
+clrscr();
+pr.show_product();
+flag=1;
+}
+}
+fp.close();
+if(flag==0)
+cout<<”\n\nrecord not exist”;
+getch();
+}
 
