@@ -110,4 +110,21 @@ cin>>no;
 fp.open(“Shop.dat”,ios::in|ios::out);
 while(fp.read((char*)&pr,sizeof(product)) && found==0)
 {
+if(pr.retpno()==no)
+{
+pr.show_product();
+cout<<”\nPlease Enter The New Details of Product”<<endl;
+pr.create_product();
+int pos=-1*sizeof(pr);
+fp.seekp(pos,ios::cur);
+fp.write((char*)&pr,sizeof(product));
+cout<<”\n\n\t Record Updated”;
+found=1;
+}
+}
+fp.close();
+if(found==0)
+cout<<”\n\n Record Not Found “;
+getch();
+}
 
