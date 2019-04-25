@@ -155,4 +155,19 @@ rename(“Temp.dat”,”Shop.dat”);
 cout<<”\n\n\tRecord Deleted ..”;
 getch();
 }
+//***************************************************************
+// function to display all products price list
+//****************************************************************
+void menu()
+{
+clrscr();
+fp.open(“Shop.dat”,ios::in);
+if(!fp)
+{
+cout<<”ERROR!!! FILE COULD NOT BE OPEN\n\n\n Go To Admin Menu to create
+File”;
+cout<<”\n\n\n Program is closing ….”;
+getch();
+exit(0);
+}
 
