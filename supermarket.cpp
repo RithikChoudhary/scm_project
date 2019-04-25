@@ -127,4 +127,104 @@ if(found==0)
 cout<<”\n\n Record Not Found “;
 getch();
 }
+//***************************************************************
+// function to delete record of file
+//****************************************************************
+void delete_product()
+{
+int no;
+clrscr();
+cout<<”\n\n\n\tDelete Record”;
+cout<<”\n\nPlease Enter The product no. of The Product You Want To Delete”;
+cin>>no;
+fp.open(“Shop.dat”,ios::in|ios::out);
+fstream fp2;
+fp2.open(“Temp.dat”,ios::out);
+fp.seekg(0,ios::beg);
+while(fp.read((char*)&pr,sizeof(product)))
+{
+if(pr.retpno()!=no)
+{
+fp2.write((char*)&pr,sizeof(product));
+}
+}
+fp2.close();
+fp.close();
+remove(“Shop.dat”);
+rename(“Temp.dat”,”Shop.dat”);
+cout<<”\n\n\tRecord Deleted ..”;
+getch();
+}
+//***************************************************************
+// function to display all products price list
+//****************************************************************
+void menu()
+{
+clrscr();
+fp.open(“Shop.dat”,ios::in);
+if(!fp)
+{
+cout<<”ERROR!!! FILE COULD NOT BE OPEN\n\n\n Go To Admin Menu to create
+File”;
+cout<<”\n\n\n Program is closing ….”;
+getch();
+exit(0);
+}
+cout<<”\n\n\t\tProduct MENU\n\n”;
+cout<<”====================================================\n”;
+cout<<”P.NO.\t\tNAME\t\tPRICE\n”;
+cout<<”====================================================\n”;
+while(fp.read((char*)&pr,sizeof(product)))
+{
+cout<<pr.retpno()<<”\t\t”<<pr.retname()<<”\t\t”<<pr.retprice()<<endl;
+}
+fp.close();
+}
+//***************************************************************
+// function to place order and generating bill for Products
+//****************************************************************
+void place_order()
+{
+int order_arr[50],quan[50],c=0;
+float amt,damt,total=0;
+char ch=’Y';
+menu();
+cout<<”\n============================”;
+cout<<”\n PLACE YOUR ORDER”;
+cout<<”\n============================\n”;
+do{
+cout<<”\n\nEnter The Product No. Of The Product : “;
+cin>>order_arr[c];
+cout<<”\nQuantity in number : “;
+cin>>quan[c];
+c++;
+cout<<”\nDo You Want To Order Another Product ? (y/n)”;
+cin>>ch;
+}while(ch==’y’ ||ch==’Y');
+cout<<”\n\nThank You For Placing The Order”;getch();clrscr();
+cout<<”\n
+\n********************************INVOICE************************\n”;
+cout<<”\nPr No.\tPr Name\tQuantity \tPrice \tAmount \tAmount after
+discount\n”;
+for(int x=0;x<=c;x++)
+{
+fp.open(“Shop.dat”,ios::in);
+fp.read((char*)&pr,sizeof(product));
+while(!fp.eof())
+{
+if(pr.retpno()==order_arr[x])
+{
+amt=pr.retprice()*quan[x];
+damt=amt-(amt*pr.retdis()/100);
+cout<<”\n”<<order_arr[x]<<”\t”<<pr.retname()
+<<”\t”<<quan[x]<<”\t\t”<<pr.retprice()<<”\t”<<amt<<”\t\t”<<damt;
+total+=damt;
+}
+fp.read((char*)&pr,sizeof(product));
+}
+fp.close();
+}
+cout<<”\n\n\t\t\t\t\tTOTAL = “<<total;
+getch();
+}
 
