@@ -198,4 +198,16 @@ cin>>order_arr[c];
 cout<<”\nQuantity in number : “;
 cin>>quan[c];
 c++;
+cout<<”\nDo You Want To Order Another Product ? (y/n)”;
+cin>>ch;
+}while(ch==’y’ ||ch==’Y');
+cout<<”\n\nThank You For Placing The Order”;getch();clrscr();
+cout<<”\n
+\n********************************INVOICE************************\n”;
+cout<<”\nPr No.\tPr Name\tQuantity \tPrice \tAmount \tAmount after
+discount\n”;
+for(int x=0;x<=c;x++)
+{
+fp.open(“Shop.dat”,ios::in);
+fp.read((char*)&pr,sizeof(product));
 
